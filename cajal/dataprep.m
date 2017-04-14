@@ -5,10 +5,10 @@ dir = cd;
 %sub_dir = char(dir(length(dir)-1:length(dir)));
 %datafile = [dir,'/',sub_dir,'_monkey_human_pd.rdf'];
 
-ninputchan = 8
+ninputchan = 8;
 
 %convert raw file!
-erp.data = Cajal_data.eeg(1:ninputchan,:);
+%erp.data = Cajal_data.eeg(1:ninputchan,:);
 %erp.data = erp.data*0.00819;
 
 
