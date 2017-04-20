@@ -2,12 +2,12 @@ function arf = build_arf_wood
 
 % Define channels
 arf.chans = 1:8;
-arf.chanLabels = {'VEM','HEM','PO3','PO4','O1','O2','OL','OR'};
+arf.chanLabels = {'VEM','HEM','F3','F4','C3','C4','P3','P4','PO3','PO4','O1','O2','OL','OR','T3','T4','T5','T6','Fz','Cz','Pz','L_mas'};
 
 % Define artifact rejection criteria
 block = 1;
-rHEM = 1000;%30; % horizontal eye movement
-rVEM = 1000;%100; % vertical eye movement
+rHEM = 30; % horizontal eye movement
+rVEM = 100; % vertical eye movement
 
 for c = 1:1:length(arf.chans)
     if c>2

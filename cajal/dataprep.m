@@ -1,6 +1,6 @@
 %data prep!
 
-clear erp;
+%clear erp;
 dir = cd;
 %sub_dir = char(dir(length(dir)-1:length(dir)));
 %datafile = [dir,'/',sub_dir,'_monkey_human_pd.rdf'];
@@ -18,9 +18,9 @@ erp.arf = build_arf_wood;
 
 % Artifact Rejection
 erp = arf_wood(erp);
-L_mas_data = erp.data(ninputchan,:);
-L_mas_data = repmat(L_mas_data,ninputchan,1);
-erp.ave_ref_data = erp.data-(L_mas_data)/2;
+%L_mas_data = erp.data(ninputchan,:);
+%L_mas_data = repmat(L_mas_data,ninputchan,1);
+erp.ave_ref_data = double(erp.data);%-(L_mas_data)/2;
 %erp.ave_ref_data = erp.data;
 erp.filtered_data = eegfilt(erp.ave_ref_data,250,0,30);
 disp('filt complete');
