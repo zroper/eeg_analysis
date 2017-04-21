@@ -22,7 +22,7 @@ erp = arf_wood(erp);
 %L_mas_data = repmat(L_mas_data,ninputchan,1);
 erp.ave_ref_data = double(erp.data);%-(L_mas_data)/2;
 %erp.ave_ref_data = erp.data;
-erp.filtered_data = eegfilt(erp.ave_ref_data,250,0,30);
+erp.filtered_data = eegfilt(erp.ave_ref_data,1000,0,100);
 disp('filt complete');
 save('erp.mat','erp')
 % Normalize waveforms

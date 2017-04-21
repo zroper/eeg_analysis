@@ -2,7 +2,7 @@ function arf = build_arf_wood
 
 % Define channels
 arf.chans = 1:8;
-arf.chanLabels = {'VEM','HEM','PO3','PO4','O1','O2','OL','OR'};
+arf.chanLabels = {'OZ1';'blank1';'PO4';'blank2';'PO3';'OR';'OL';'OZ2'};
 
 % Define artifact rejection criteria
 block = 1;
