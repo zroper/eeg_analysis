@@ -5,7 +5,7 @@ arf.chans = 1:8;
 arf.chanLabels = {'OZ1';'blank1';'PO4';'blank2';'PO3';'OR';'OL';'OZ2'};
 
 % Define artifact rejection criteria
-block = 1;
+block = .8;
 rHEM = 1000;%30; % horizontal eye movement
 rVEM = 1000;%100; % vertical eye movement
 

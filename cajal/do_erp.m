@@ -16,40 +16,48 @@ erp.trialCodes = zeros(1,length(erp.eventCodes));
 erp.trialNumCodes = zeros(1,length(erp.eventCodes));
 trial_counter = 0;
 %GOTTA SORT OUT THE CONDITION ORDER!!!!!!!!
-%IMPLEMENT TRIALCODES based on eventcoes!!!!!!!!!
+%IMPLEMENT TRIALCODES based on eventcodes!!!!!!!!!
 for ec = 1:1:length(erp.eventCodes)-65
     if erp.eventCodes(ec) == 2651 % Target Onset
-            search_start = erp.eventTimes(ec+1);
-            search_end = search_start+500;
-            searching = 1;
-            counter = 1;
-            while searching ==1
-                current_time = erp.eventTimes(ec+counter);
-                if current_time < search_end && erp.eventCodes(ec+counter) == 5045 %Right Target
-                    erp.trialCodes(ec) = 2;
-                    searching =0;
-                elseif current_time < search_end && erp.eventCodes(ec+counter) == 5090 %Right Target
-                    erp.trialCodes(ec) = 2;
-                    searching =0;
-                elseif current_time < search_end && erp.eventCodes(ec+counter) == 5135 %Right Target
-                    erp.trialCodes(ec) = 2;
-                    searching =0;
-                elseif current_time < search_end && erp.eventCodes(ec+counter) == 5225 %Left Target
-                    erp.trialCodes(ec) = 1;
-                    searching =0;
-                elseif current_time < search_end && erp.eventCodes(ec+counter) == 5270 %Left Target
-                    erp.trialCodes(ec) = 1;
-                    searching =0;
-                elseif current_time < search_end && erp.eventCodes(ec+counter) == 5315 %Left Target
-                    erp.trialCodes(ec) = 1;
-                    searching =0;       
-                elseif current_time > search_end
-                    searching = 0;
-                end;
-                counter = counter+1; 
-            end;
-    end 
-end;
+        search_start = erp.eventTimes(ec+1);
+        search_end = search_start+1000;
+        searching = 1;
+        counter = 1;
+        while searching ==1
+            current_time = erp.eventTimes(ec+counter);
+            if current_time < search_end && erp.eventCodes(ec+counter) == 2600 %Correct Trial
+                counter2 = counter;
+                while searching ==1
+                    if current_time < search_end && erp.eventCodes(ec+counter2) == 5045 %Right Target
+                        erp.trialCodes(ec) = 2;
+                        searching =0;
+                    elseif current_time < search_end && erp.eventCodes(ec+counter2) == 5090 %Right Target
+                        erp.trialCodes(ec) = 2;
+                        searching =0;
+                    elseif current_time < search_end && erp.eventCodes(ec+counter2) == 5135 %Right Target
+                        erp.trialCodes(ec) = 2;
+                        searching =0;
+                    elseif current_time < search_end && erp.eventCodes(ec+counter2) == 5225 %Left Target
+                        erp.trialCodes(ec) = 1;
+                        searching =0;
+                    elseif current_time < search_end && erp.eventCodes(ec+counter2) == 5270 %Left Target
+                        erp.trialCodes(ec) = 1;
+                        searching =0;
+                    elseif current_time < search_end && erp.eventCodes(ec+counter2) == 5315 %Left Target
+                        erp.trialCodes(ec) = 1;
+                        searching =0;
+                    elseif current_time > search_end
+                        searching = 0;
+                    end;
+                    counter2 = counter2 + 1;
+                end
+            elseif current_time > search_end
+                searching = 0;
+            end
+            counter = counter + 1;
+        end
+    end
+end
 
     
 %IMPLEMENT TRIALCODES based on eventcodes!!!!!!!!! 
@@ -95,19 +103,24 @@ for ec  = 1:1:length(erp.eventCodes)
 %                 artifact = 1;
 %                 blocking_counter(erp.trialCodes(ec))=blocking_counter(erp.trialCodes(ec))+1; 
 %             end
+
+            if sum(sum(erp.arf.blocking(:,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint)))>0
+                artifact = 1;
+                blocking_counter(erp.trialCodes(ec))=blocking_counter(erp.trialCodes(ec))+1; 
+            end
             
              if artifact == 0
                  art_free_counter(erp.trialCodes(ec))=art_free_counter(erp.trialCodes(ec))+1; 
                  erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
 %                 %erp.trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint_hilb:erp.eventTimes(ec)+post_timepoint_hilb);
-                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint+post_timepoint+1);
+                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(8,pre_timepoint+post_timepoint+1);
 %                 %erp.reject_trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint_hilb+post_timepoint_hilb+1);
              elseif artifact >0
                  art_counter(erp.trialCodes(ec))=art_counter(erp.trialCodes(ec))+1; 
-                 erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint+post_timepoint+1);
+%                 erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(8,pre_timepoint+post_timepoint+1);
 %                 %erp.trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint_hilb+post_timepoint_hilb+1);
 %                 
-                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
+%                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(8,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
 %                 %erp.reject_trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint_hilb:erp.eventTimes(ec)+post_timepoint_hilb);
              end;
             %erp.trialNum.(fieldname)(counters(erp.trialCodes(ec)))=erp.trialNumCodes(ec);
