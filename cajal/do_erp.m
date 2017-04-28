@@ -113,7 +113,7 @@ for ec  = 1:1:length(erp.eventCodes)
                  art_free_counter(erp.trialCodes(ec))=art_free_counter(erp.trialCodes(ec))+1; 
                  erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
 %                 %erp.trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint_hilb:erp.eventTimes(ec)+post_timepoint_hilb);
-                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(8,pre_timepoint+post_timepoint+1);
+%                  erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(8,pre_timepoint+post_timepoint+1);
 %                 %erp.reject_trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint_hilb+post_timepoint_hilb+1);
              elseif artifact >0
                  art_counter(erp.trialCodes(ec))=art_counter(erp.trialCodes(ec))+1; 

@@ -20,9 +20,9 @@ while 1
     minPeak = min(rawTS(window)); % minimum peak amplitude
     maxPeak = max(rawTS(window)); % maximum peak amplitude
 
-    if sum(rawTS(window)>= maxPeak- tolerance) >= round(blockdur/4)
+    if sum(rawTS(window)>= maxPeak- tolerance) >= round(blockdur/erp.rateAcq)
         blocking(window) = 1;
-    elseif  sum(rawTS(window)<= minPeak+ tolerance) >= round(blockdur/4)
+    elseif  sum(rawTS(window)<= minPeak+ tolerance) >= round(blockdur/erp.rateAcq)
         blocking(window) = 1;
     end;
 
