@@ -3,7 +3,10 @@
 load erp;
 
 conditions_Search = {'T_Left_1';'T_Left_2';'T_Left_3';'T_Right_1';'T_Right_2';'T_Right_3';'T_up';'T_down'};
-channels = {'OZ1';'blank1';'PO4';'blank2';'PO3';'OR';'OL';'OZ2'};
+channels = {'chan1';'chan2';'chan3';'chan4';'chan5';'chan6';...
+                'chan7';'chan8';'chan9';'chan10';'chan11';'chan12';...
+                'chan13';'chan14';'chan15';'chan16';'chan17';'chan18';...
+                'chan19';'chan20';'chan21';'chan22';'chan23';'chan24'};
 
 %baseline_window = [1:50];%instep
 %target_window = [51:150];
@@ -120,11 +123,11 @@ for ec  = 1:1:length(erp.eventCodes)
                  art_free_counter(erp.trialCodes(ec))=art_free_counter(erp.trialCodes(ec))+1; 
                  erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
                 %erp.trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint_hilb:erp.eventTimes(ec)+post_timepoint_hilb);
-                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(8,pre_timepoint+post_timepoint+1);
+                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(length(channels),pre_timepoint+post_timepoint+1);
                 %erp.reject_trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint_hilb+post_timepoint_hilb+1);
              elseif artifact >0
                  art_counter(erp.trialCodes(ec))=art_counter(erp.trialCodes(ec))+1; 
-                erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(8,pre_timepoint+post_timepoint+1);
+                erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(length(channels),pre_timepoint+post_timepoint+1);
                 %erp.trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint_hilb+post_timepoint_hilb+1);
                 
                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(8,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
@@ -158,9 +161,9 @@ Cajal_search_erp = struct();
 reject_Cajal_search_erp = struct();
 Cajal_search_erp_ave = struct();
 
-channels = {'OZ1';'blank1';'PO4';'blank2';'PO3';'OR';'OL';'OZ2'};
-channels_r = {'OZ1';'blank1';'PO4';'blank2';'PO3';'OR';'OL';'OZ2'};
-channel_r_index = [1 2 4 3 6 5 8];
+%channels_r = {'OZ1';'blank1';'PO4';'blank2';'PO3';'OR';'OL';'OZ2'};
+%channel_r_index = [1 2 4 3 6 5 8];
+
 for condition = 1:1:length(conditions_Search)
     condition_name = (char(conditions_Search(condition,:)));
     condition_name = [condition_name];
