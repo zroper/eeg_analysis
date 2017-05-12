@@ -10,11 +10,11 @@ for chan = 1:24
     if chan ~= 2 && chan ~= 4 && chan ~= 14 && chan ~= 16 && chan ~= 18 && chan ~= 20 %Dump blank channels (determined by the particular rig set-up)
         clear datacond
         datasum = zeros(1,801);
-        for pos = 4:6
+        for pos = 8:8
             datacond=eval(['Cajal_search_erp_ave.',conditions_Search{pos},'_',channels{chan}]);
             datasum = datasum+datacond;
         end
-        data = datasum/3;
+        data = datasum;
         plot(data)
     end
 end

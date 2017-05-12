@@ -23,7 +23,7 @@ trial_counter = 0;
 for ec = 1:1:length(erp.eventCodes)-65
     if erp.eventCodes(ec) == 2651 % Target Onset
         search_start = erp.eventTimes(ec+1);
-        search_end = search_start+1000;
+        search_end = search_start+500;
         searching = 1;
         counter = 1;
         while searching ==1
