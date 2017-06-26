@@ -1,6 +1,6 @@
 %attempts to bin trials
 
-load erp;
+%load erp;
 
 conditions_Search = {'T_Left_1';'T_Left_2';'T_Left_3';'T_Right_1';'T_Right_2';'T_Right_3';'T_up';'T_down'};
 channels = {'chan1';'chan2';'chan3';'chan4';'chan5';'chan6';...
@@ -58,7 +58,7 @@ for ec = 1:1:length(erp.eventCodes)-65
                         
                     elseif current_time > search_end
                         searching = 0;
-                    end;
+                    end
                     counter2 = counter2 + 1;
                 end
             elseif current_time > search_end
@@ -98,7 +98,7 @@ for ec  = 1:1:length(erp.eventCodes)
                 post_timepoint = erp.mem_window(2);
                 %pre_timepoint_hilb = erp.mem_window(1)+300;%to give ample time for filters!
                 %post_timepoint_hilb = erp.mem_window(2)+300;%to give ample time for filters!
-            end;
+            end
                 
             
             %check the time range if it's artifact free
@@ -132,15 +132,15 @@ for ec  = 1:1:length(erp.eventCodes)
                 
                 erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(8,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
                 %erp.reject_trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint_hilb:erp.eventTimes(ec)+post_timepoint_hilb);
-             end;
+             end
             %erp.trialNum.(fieldname)(counters(erp.trialCodes(ec)))=erp.trialNumCodes(ec);
             counters(erp.trialCodes(ec))= counters(erp.trialCodes(ec))+1;
               
         
-    end;
+    end
 
 
-end;
+end
 
 %now baseline it!
 
@@ -154,7 +154,7 @@ for condition = 1:1:length(conditions_Search)
     reject_baseline = repmat(squeeze(mean(erp.reject_trial.(fieldname)(:,:,erp.baseline),3)),[1,1,size(erp.trial.(fieldname),3)]);     
     erp.reject_trial.(fieldname)= erp.reject_trial.(fieldname)-reject_baseline;
 
-end;
+end
 
 %Now create the erp&ave files
 Cajal_search_erp = struct();
@@ -195,13 +195,8 @@ for condition = 1:1:length(conditions_Search)
         Cajal_search_erp_ave.(fieldname) = nanmean(Cajal_search_erp.(fieldname)(:,:),1);
         %hm_pd_erp_ave.(lat_fieldname) = nanmean(hm_pd_erp.(lat_fieldname)(:,:),1);
         %hm_pd_erp_ave.(mid_fieldname) = nanmean(hm_pd_erp.(mid_fieldname)(:,:),1);
-
-
-    end;
-    
-    
-    
-end;
+    end 
+end
 
 
 
@@ -241,7 +236,7 @@ for condition = 1:1:length(conditions_Search)
 %     choice1_art.(mid_eMove_name)= (eMove_counter((condition-1)*4+2)+eMove_counter((condition-1)*4+3));
 %     choice1_art.(mid_blocking_name)= (blocking_counter((condition-1)*4+2)+blocking_counter((condition-1)*4+3));
     
-end;
+end
 
 
 %save('erp.mat','erp');

@@ -10,8 +10,13 @@ ninputchan = 24;
 %convert raw file!
 %erp.data = Cajal_data.eeg(1:ninputchan,:);
 %erp.data = erp.data*0.00819;
+erp.srate = Cajal_data.eeg8.streams.EEG8.fs;
+erp.eventCodes = Cajal_data.evnt.scalars.EVNT.data;
+erp.eventTimes = Cajal_data.evnt.scalars.EVNT.ts*1000;
 
-
+erp.data=cat(1,Cajal_data.eeg8.streams.EEG8.data,Cajal_data.eeg16.streams.EEG6.data);
+erp.pnts = length(erp.data);
+erp.rateAcq = 1/erp.srate;
 
 % Build artifact rejection file
 erp.arf = build_arf_wood;
