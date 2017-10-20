@@ -1,0 +1,43 @@
+cd ~/Desktop/Ca_data/TDT_Behavior
+
+files = dir;
+pre_dir = files(3).folder;
+
+for fid = 70:70%length(files)
+    full_name = files(fid).name;
+    
+    if isempty(strfind(full_name,'*.mat'))  %need to skip non-.mat files
+        
+        current_file = strtok(full_name,'.');
+        
+        mkdir(current_file);
+        
+        source_path = strcat(pre_dir, '/', full_name);
+        
+        des_dir = strcat(pre_dir, '/', current_file);
+        
+        %movefile(full_name, des_dir)
+        load(full_name)
+        
+        cd(des_dir)
+        
+        erp = struct();
+        try
+            erp.srate = Cajal_data.eeg8.streams.EEG8.fs;
+            erp.eventCodes = Cajal_data.evnt.scalars.EVNT.data;
+            erp.eventTimes = Cajal_data.evnt.scalars.EVNT.ts*1000;
+            
+            erp.data=cat(1,Cajal_data.eeg8.streams.EEG8.data,Cajal_data.eeg16.streams.EEG6.data);
+            erp.pnts = length(erp.data);
+            erp.rateAcq = 1/erp.srate;
+        catch
+        end
+        
+        save('erp.mat','erp')
+        
+        clear Cajal_data
+        
+        cd ../
+        
+    end
+end
