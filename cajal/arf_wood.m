@@ -17,12 +17,6 @@ for i = 1:size(erp.data,1) % go through each channel and apply correct arf crite
 %         erp.arf.eMove = step_wood(erp,i);
 %     end;
     
-    
-    if i >0 && i < 25
-        if i ~=2
-            if i~=4
-                erp.arf.blocking(i,:) = blocking(erp,i);
-            end
-        end;
-    end
+erp.arf.blocking(i,:) = blocking(erp,i);
+
 end

@@ -5,8 +5,7 @@
 conditions_Search = {'T_Left_1';'T_Left_2';'T_Left_3';'T_Right_1';'T_Right_2';'T_Right_3';'T_up';'T_down'};
 channels = {'chan1';'chan2';'chan3';'chan4';'chan5';'chan6';...
                 'chan7';'chan8';'chan9';'chan10';'chan11';'chan12';...
-                'chan13';'chan14';'chan15';'chan16';'chan17';'chan18';...
-                'chan19';'chan20';'chan21';'chan22';'chan23';'chan24'};
+                'chan13';'chan14';'chan15';'chan16';'chan17';'chan18'};
 
 %baseline_window = [1:50];%instep
 %target_window = [51:150];
@@ -130,7 +129,7 @@ for ec  = 1:1:length(erp.eventCodes)
                 erp.trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(length(channels),pre_timepoint+post_timepoint+1);
                 %erp.trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= nan(22,pre_timepoint_hilb+post_timepoint_hilb+1);
                 
-                erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(8,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
+                erp.reject_trial.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint:erp.eventTimes(ec)+post_timepoint);
                 %erp.reject_trial_hilb.(fieldname)(counters(erp.trialCodes(ec)),:,:)= erp.filtered_data(:,erp.eventTimes(ec)-pre_timepoint_hilb:erp.eventTimes(ec)+post_timepoint_hilb);
              end
             %erp.trialNum.(fieldname)(counters(erp.trialCodes(ec)))=erp.trialNumCodes(ec);
@@ -181,13 +180,13 @@ for condition = 1:1:length(conditions_Search)
         %channel_name_r = char(channels_r(channel,:));
         fieldname = [condition_name,'_',channel_name];
         
-        Cajal_search_erp.(fieldname) = [squeeze(erp.trial.(condition_name)(:,channel,:));];
+        Cajal_search_erp.(fieldname) = squeeze(erp.trial.(condition_name)(:,channel,:));
         %hm_pd_erp.(lat_fieldname) = [squeeze(erp.trial.(l_condition_name)(:,channel,:));squeeze(erp.trial.(r_condition_name)(:,channel_r_index(channel),:))];
         %hm_pd_erp.(mid_fieldname) = [squeeze(erp.trial.(condition_name)(:,channel,:));squeeze(erp.trial.(b_condition_name)(:,channel,:))];
         %hm_pd_erp.(lat_fieldname_hilb) = [squeeze(erp.trial_hilb.(l_condition_name)(:,channel,:));squeeze(erp.trial_hilb.(r_condition_name)(:,channel_r_index(channel),:))];
         %hm_pd_erp.(mid_fieldname_hilb) = [squeeze(erp.trial_hilb.(condition_name)(:,channel,:));squeeze(erp.trial_hilb.(b_condition_name)(:,channel,:))];
         
-        reject_Cajal_search_erp.(fieldname) = [squeeze(erp.reject_trial.(condition_name)(:,channel,:));];
+        reject_Cajal_search_erp.(fieldname) = squeeze(erp.reject_trial.(condition_name)(:,channel,:));
         %reject_hm_pd_erp.(lat_fieldname) = [squeeze(erp.reject_trial.(l_condition_name)(:,channel,:));squeeze(erp.reject_trial.(r_condition_name)(:,channel_r_index(channel),:))];
         %reject_hm_pd_erp.(mid_fieldname) = [squeeze(erp.reject_trial.(condition_name)(:,channel,:));squeeze(erp.reject_trial.(b_condition_name)(:,channel,:))];
         

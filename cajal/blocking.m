@@ -24,7 +24,7 @@ while 1
         blocking(window) = 1;
     elseif  sum(rawTS(window)<= minPeak+ tolerance) >= round(blockdur/erp.rateAcq)
         blocking(window) = 1;
-    end;
+    end
 
 
     wInd = wInd + winStep;
